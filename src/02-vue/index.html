@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>form</title>
+        <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            window.onload = function() {
+                const btn = document.getElementById("btn")
+                btn.onclick = function () {
+                    alert(btn.id)
+                    btn.onclick = null
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div id="app">
+            <p>{{ message }}</p>
+            <button id="btn">bbb</button>
+            <custom-input></custom-input>
+            <anchored-heading :level="1">Hello world!</anchored-heading>
+          </div>
+          <script type="text/x-template" id="my-heading">
+            <h1 v-if="level === 1"><slot></slot></h1>
+            <h2 v-else-if="level === 2"><slot></slot></h2>
+            <h3 v-else-if="level === 3"><slot></slot></h3>
+            <h4 v-else-if="level === 4"><slot></slot></h4>
+            <h5 v-else-if="level === 5"><slot></slot></h5>
+            <h6 v-else-if="level === 6"><slot></slot></h6>
+          </script>
+          <script>
+              // jsfiddle 示例
+              // https://jsfiddle.net/chrisvfritz/o3nycadu/
+              Vue.component('anchored-heading', {
+                template: '#my-heading',
+                props: {
+                    level: {
+                    type: Number,
+                    required: true
+                    }
+                }
+                })
+              Vue.component('custom-input', {
+                  props: ['value'],
+                  hehe: 'da',
+                  created(){
+                      console.log('options', this.$options)
+                  },
+                  template: `
+                    <input type="text" :value="value" @input="$emit('input', $event.target.value)" />
+                  `
+              })
+              window.vue1 = new Vue({
+                  el: "#app",
+                  myOption: 'hello!',
+                  data: {
+                      message: "minooo"
+                  }
+              })
+          </script>
+    </body>
+</html>
