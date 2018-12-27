@@ -21,6 +21,7 @@
             <button id="btn">bbb</button>
             <custom-input></custom-input>
             <anchored-heading :level="1">Hello world!</anchored-heading>
+            <base-layout>hello</base-layout>
           </div>
           <script type="text/x-template" id="my-heading">
             <h1 v-if="level === 1"><slot></slot></h1>
@@ -50,6 +51,15 @@
                   },
                   template: `
                     <input type="text" :value="value" @input="$emit('input', $event.target.value)" />
+                  `
+              })
+              Vue.component('base-layout', {
+                  template: `
+                    <div class="container">
+                        <header><slot name="header"></slot></header>
+                        <main><slot></slot></main>
+                        <footer><slot name="footer"></slot></footer>
+                    </div>
                   `
               })
               window.vue1 = new Vue({
